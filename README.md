@@ -5,13 +5,15 @@ varios projetos
 
 3 classes
 Projeto
- - armazenas detalhes
- - listar as tarefas
+ - armazenas detalhes - ok
+ - listar as tarefas - 
+ - adicionar projeto - json - ok
+ - remover projeto - json - ok
 
 Tarefa
  - armaenas detalhes
  
-Usuáio
+Usuários
  - armazenas detalhes
  - lista das tarefas incluiadas a ele
 
