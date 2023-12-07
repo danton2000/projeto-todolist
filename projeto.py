@@ -12,7 +12,7 @@ class Projeto:
 
         self.__status = status
 
-        self.__lista_tarefas = []
+        self.__lista_tarefas = None
 
         self.adicionarProjeto()
 
@@ -44,16 +44,25 @@ class Projeto:
     def status(self, status):
          self.__status = status
 
+    @property
+    def tarefas(self):
+         return self.__tarefas
+
+    @tarefas.setter
+    def tarefas(self, tarefas):
+         self.__tarefas = tarefas
+
     def adicionarProjeto(self):
 
         dict_projeto = {
             'nome': self.__nome,
-            'descricao': self.__descricao
+            'descricao': self.__descricao,
+            'status': self.__status
         }
 
         Projeto.lista_projetos.append(dict_projeto)
 
-        with open("lista_projeto.json", "w") as outfile: 
+        with open("lista_projetos.json", "w") as outfile: 
             json.dump(Projeto.lista_projetos, outfile)
 
         print("Projeto Adicionado.")
@@ -62,14 +71,15 @@ class Projeto:
 
         Projeto.lista_projetos.pop(index_lista)
 
-        with open("lista_projeto.json", "w") as outfile: 
+        with open("lista_projetos.json", "w") as outfile: 
             json.dump(Projeto.lista_projetos, outfile)
 
         print("Projeto Removido.")
 
-    def listarProjeto(self):
-
-        arquivo_projetos = open("lista_projeto.json", "r")
+    def listarProjetos(self):
+        
+        #pegando as informações que tem no JSON
+        arquivo_projetos = open("lista_projetos.json", "r")
 
         dic_temp = json.load(arquivo_projetos)
 
@@ -77,11 +87,14 @@ class Projeto:
 
         return dic_temp
 
-#projeto = Projeto(nome='projeto1', descricao='descricao do projeto')
+        
+
+projeto = Projeto(nome='projeto1', descricao='descricao do projeto')
+projeto = Projeto(nome='projeto2', descricao='descricao do projeto')
 
 #projeto.removerProjeto(0)
 
-#projeto.listarProjeto()
+projeto.listarProjetos()
     
 
 
