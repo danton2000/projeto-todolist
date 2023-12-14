@@ -72,9 +72,11 @@ class Tarefa:
           
           data_atual = date.today()
           
-          print(len(Tarefa.lista_tarefas))
+          # print(len(Tarefa.lista_tarefas))
           
           for tarefa in Tarefa.lista_tarefas:
+
+               # print(f"nome: {tarefa.nome} status: {tarefa.status}")
                
                dict_tarefas = {
                     'nome': tarefa.nome,

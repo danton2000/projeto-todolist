@@ -69,7 +69,7 @@ class Projeto:
                
                lista_dict_projetos.append(dict_projetos)
                
-          print(len(lista_dict_projetos))
+          # print(len(lista_dict_projetos))
                
           #Inserindo as informações no Json    
           with open("lista_projetos.json", "w") as outfile: 
@@ -92,17 +92,23 @@ class Projeto:
      def listarProjetos(cls):
           #Utilizando metodo da classe para listar todos os projetos
           
+         
+
           #Limpar a listar da Classe
           Projeto.lista_projetos = []
           
           #Instanciar os projetos que estão no Json
           
-          #pegando as informações que tem no JSON
-          arquivo_projetos = open("lista_projetos.json", "r")
+          try:
+               #pegando as informações que tem no JSON
+               arquivo_projetos = open("lista_projetos.json", "r")
 
-          dic_temp = json.load(arquivo_projetos)
+               dic_temp = json.load(arquivo_projetos)
 
-          arquivo_projetos.close()
+               arquivo_projetos.close()
+          except:
+               #arquivo vazio
+               dic_temp = {}
           
           return dic_temp
           

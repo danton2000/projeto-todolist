@@ -3,8 +3,8 @@ from projeto import Projeto
 from tarefas import Tarefa
 
 while True:
-    print("-- Menu | Gerenciamento de Projeto --")
-    print("1 - Criar um Projeto")
+    print("-- Menu Principal --")
+    print("1 - Projetos")
     print("2 - Tarefas")
     print("3 - Criar Usuario")
     print("4 - Sair")
@@ -12,15 +12,71 @@ while True:
     opcao = input("Digite uma opção: ")
 
     if opcao == "1":
-        # Adicionando um Projeto
-        nome = input("Nome do Projeto: ")
 
-        descricao = input("Descrição do Projeto: ")
-
-        projeto = Projeto(nome=nome, descricao=descricao)
+        # Mostrando os Projetos que foram criados
+        print("Projetos:")
         
-        projeto.adicionarProjeto()
+        for index, projeto in enumerate(Projeto.listarProjetos()):
+            
+            #Mostrando o nome dos projetos que estão no JSON
+            print(index,'-', projeto['nome'])
+            
+            #Instanciando os Projetos do JSON e colocando as Instancias em uma lista.
+            Projeto(nome=projeto['nome'], descricao=projeto['descricao'], status=projeto['status'])
 
+        print("-- Menu | Gerenciamento de Projetos --")
+        print("1 - Criar novo Projeto")
+        print("2 - Editar status do Projeto")
+
+        opcao = input("Digite uma opção: ")
+
+        if opcao == "1":
+
+            while True:
+
+                # Adicionando um Projeto
+                nome = input("Nome do Projeto: ")
+
+                descricao = input("Descrição do Projeto: ")
+
+                projeto = Projeto(nome=nome, descricao=descricao)
+                
+                projeto.adicionarProjeto()
+
+                continuar = input("Adicionar outro Projeto? (s/n)")
+
+                if continuar == "s":
+                    continue
+                else:
+                    break
+
+        elif opcao == "2":
+        
+            # Mostrando os Projetos que foram criados
+            print("Projetos:")
+            
+            for index, projeto in enumerate(Projeto.listarProjetos()):
+                
+                #Mostrando o nome dos projetos que estão no JSON
+                print(index,'-', projeto['nome'], projeto['status'])
+                
+                #Instanciando os Projetos do JSON e colocando as Instancias em uma lista.
+                Projeto(nome=projeto['nome'], descricao=projeto['descricao'], status=projeto['status'])
+
+            print("Escolha um projeto para alterar o status:")
+
+            #Escolhendo um Projeto
+            index_projeto_escolhido = int(input("Escolha 1 Projeto: "))
+            
+            projeto_escolhido = Projeto.lista_projetos[index_projeto_escolhido]
+
+            # print(tarefa_escolhida)
+            status = int(input("Status:"))
+            
+            projeto_escolhido.status = status
+            
+            projeto_escolhido.adicionarProjeto()
+            
     elif opcao == "2":
         Tarefa.lista_tarefas = []
         
@@ -34,7 +90,7 @@ while True:
                 
                 for index_tarefa, tarefa in enumerate(projeto['tarefas']):
                     
-                    Tarefa(nome=tarefa['nome'], descricao=tarefa['descricao'])
+                    Tarefa(nome=tarefa['nome'], descricao=tarefa['descricao'], status=tarefa['status'])
                     
             
             #Mostrando o nome dos projetos que estão no JSON
@@ -65,10 +121,7 @@ while True:
         opcao = input("Digite uma opção: ")
         
         if opcao == "1":
-            
-            #Editar os atributos do prjeto (Adicionar tarefas)
-            #projeto_escolhido.nome = "Oi"
-            
+
             while True:
                 # Adicionando uma Tarefa
                 nome = input("Nome da Tarefa: ")
@@ -96,7 +149,7 @@ while True:
             if tarefas != None:
                 for index, tarefa in enumerate(tarefas):
                 
-                    print(f"{index} - Tarefa:{tarefa["nome"]}, Status: {tarefa["status"]}")
+                    print(f"{index} - Tarefa:{tarefa['nome']}, Status: {tarefa['status']}")
                     
                     #Tarefa(nome=tarefa['nome'], descricao=tarefa['descricao'], status = tarefa['status'])
             
@@ -106,16 +159,16 @@ while True:
             
             tarefa_escolhida = Tarefa.lista_tarefas[index_tarefa_escolhida]
             
-            print(tarefa_escolhida)
+            # print(tarefa_escolhida)
             status = int(input("Status:"))
             
             tarefa_escolhida.status = status
             
-            print(len(Tarefa.lista_tarefas))
+            # print(len(Tarefa.lista_tarefas))
             
             tarefa_escolhida = tarefa_escolhida.adicionarTarefa()
             
-            print(len(tarefa_escolhida))
+            # print(len(tarefa_escolhida))
             #exit()
             
             #Colocando as tarefas no Projeto Escolhido
